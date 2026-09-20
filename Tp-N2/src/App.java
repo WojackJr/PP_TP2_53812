@@ -3,8 +3,11 @@ import modelo.Estudiante;
 import modelo.EventoUniversitario;
 import modelo.Sala;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class App {//este codigo crea un evento, a ese evento se crea un objeto actividad que es un array que a este por cada posicion de actividad se le crea un array que son las inscripciones que contienen los datos de los estudiantes
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("REGISTRO DE EVENTOS\n" + "===================");
         System.out.println("Inicializador estatico: se cargo la clase EventoUniversitario.");
 
@@ -39,6 +42,46 @@ public class App {//este codigo crea un evento, a ese evento se crea un objeto a
         EventoUniversitario copiaEvento1=new EventoUniversitario(evento1);
         copiaEvento1.asignarSala(sala1);
 
+        //empieza el bloque de persistir evento
+
+        try { //bloque de intento para persistir el evento.
+
+            evento1.persistirEvento();
+
+            EventoUniversitario copiaDesdeArchivo =
+                    evento1.recuperarEvento(evento1.getId());
+
+            System.out.println("\n\nDATOS DEL EVENTO");
+            evento1.mostrarDatos();
+
+            System.out.println(
+                    "\nDatos del evento recuperado desde archivo:"
+            );
+
+            copiaDesdeArchivo.mostrarDatos();
+
+        } catch (FileNotFoundException e) {
+
+            System.out.println(
+                    "Error 01: No se encontró el archivo del evento: "
+                            + e.getMessage()
+            );
+
+        } catch (ClassNotFoundException e) {
+
+            System.out.println(
+                    "No fue posible reconstruir el objeto almacenado: "
+                            + e.getMessage()
+            );
+
+        } catch (IOException e) {
+
+            System.out.println(
+                    "Se produjo un error de entrada/salida: "
+                            + e.getMessage()
+            );
+        }
+        //termina el bloque de persistir el evento
 
         //evento 2
         EventoUniversitario evento2=new EventoUniversitario("2", "Jornadas de Laboratorio", 2000.0, false);
