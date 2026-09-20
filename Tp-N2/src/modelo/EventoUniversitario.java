@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
-public class EventoUniversitario implements java.io.Serializable {
+public class EventoUniversitario implements Serializable{
     private final String id;
     private String titulo;
     private double costoBase;
@@ -141,6 +141,7 @@ public class EventoUniversitario implements java.io.Serializable {
     //metodo persistir evento
     public boolean persistirEvento(){//este metodo guardaria el evento en el disco, por eso 'persiste'
         String Evento = this.id + ".telAviv";//el return false se hizo automatico, corregir si es necesario
+        return false;
     }
     public EventoUniversitario recuperarEvento(String id){//aca hay que serailizar
         return this;

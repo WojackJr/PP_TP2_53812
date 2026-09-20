@@ -1,3 +1,4 @@
+import exepciones.CupoExcedidoException;
 import modelo.Estudiante;
 import modelo.EventoUniversitario;
 import modelo.Sala;
@@ -23,13 +24,16 @@ public class App {//este codigo crea un evento, a ese evento se crea un objeto a
         evento1.asignarSala(sala1);
 
         // actividades del evento 1
-        evento1.crearActividad("Charla", 1, "El futuro de la Inteligencia Artificial", 50, false);
+        evento1.crearActividad("Charla", 1, "El futuro de la Inteligencia Artificial", 1, false);
         evento1.crearActividad("Taller", 2, "Desarrollo en Java", 30, true);
 
         //inscripciones
-        evento1.getActividades().get(0).inscribir(estudiante1);//el numero dentro del get hace referencia al numero de actividad (el 0 es el primero que se creó en el bucle)
-        evento1.getActividades().get(1).inscribir(estudiante2);
-        evento1.getActividades().get(0).inscribir(estudiante3);
+        try {
+            evento1.getActividades().get(0).inscribir(estudiante1);//el numero dentro del get hace referencia al numero de actividad (el 0 es el primero que se creó en el bucle)
+            evento1.getActividades().get(1).inscribir(estudiante2);
+            evento1.getActividades().get(0).inscribir(estudiante3);
+        } catch (CupoExcedidoException e) {
+            System.out.println("[ERROR DE INSCRIPCION]: "+e.getMessage()+" '"+evento1.getActividades().get(0).getTitulo()+"'");}//el sout es para que muestre el error, el e.getMessage() llama al texto.
 
         //la copia va al final asi agarra todos los atributos que le asigne a la original
         EventoUniversitario copiaEvento1=new EventoUniversitario(evento1);
@@ -45,9 +49,13 @@ public class App {//este codigo crea un evento, a ese evento se crea un objeto a
         evento2.crearActividad("Taller", 4, "Destilado de liquidos", 25, false);
 
         //inscripciones
-        evento2.getActividades().get(1).inscribir(estudiante1);
-        evento2.getActividades().get(0).inscribir(estudiante2);
-        evento2.getActividades().get(0).inscribir(estudiante3);
+        try {
+            evento2.getActividades().get(1).inscribir(estudiante1);
+            evento2.getActividades().get(0).inscribir(estudiante2);
+            evento2.getActividades().get(0).inscribir(estudiante3);
+        } catch (CupoExcedidoException e) {
+            System.out.println("[ERROR DE INSCRIPCION]: "+e.getMessage());
+        }
 
         //copia evento 2
         EventoUniversitario copiaEvento2=new EventoUniversitario(evento2);
@@ -58,14 +66,17 @@ public class App {//este codigo crea un evento, a ese evento se crea un objeto a
         evento3.asignarSala(sala3);
 
         //actividades
-        evento3.crearActividad("Taller", 5, "Torneo CS2", 30, true);
-        evento3.crearActividad("Charla", 6, "Herramientas para el manejo del estrés", 40, false);
+        evento3.crearActividad("Taller", 5, "Torneo CS2", 0, true);
+        evento3.crearActividad("Charla", 6, "Herramientas para el manejo del estrés", 30, false);
 
         //inscripciones
-        evento3.getActividades().get(0).inscribir(estudiante1);
-        evento3.getActividades().get(1).inscribir(estudiante2);
-        evento3.getActividades().get(1).inscribir(estudiante3);
-
+        try {
+            evento3.getActividades().get(0).inscribir(estudiante1);
+            evento3.getActividades().get(1).inscribir(estudiante2);
+            evento3.getActividades().get(1).inscribir(estudiante3);
+        } catch (CupoExcedidoException e) {
+            System.out.println("[ERROR DE INSCRIPCION]: "+e.getMessage()+" '"+evento3.getActividades().get(0).getTitulo()+"'");
+        }
         //copia evento 3
         EventoUniversitario copiaEvento3=new EventoUniversitario(evento3);
         copiaEvento3.asignarSala(sala3);

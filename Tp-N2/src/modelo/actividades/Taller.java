@@ -1,6 +1,6 @@
 package modelo.actividades;
 import java.io.Serializable;
-public class Taller extends Actividad implements java.io.Serializable{
+public class Taller extends Actividad implements Serializable{
     //atributos
     private boolean requiereNotebook;
     //constructor

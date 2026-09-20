@@ -1,4 +1,5 @@
 package modelo.actividades;
+import exepciones.CupoExcedidoException;
 import modelo.Estudiante;
 import modelo.Inscripcion;
 
@@ -7,7 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
-public abstract class Actividad implements java.io.Serializable{
+public abstract class Actividad implements Serializable{
     private int id;
     private String titulo;
     private int cupoMaximo;
@@ -47,7 +48,10 @@ public abstract class Actividad implements java.io.Serializable{
         this.cupoMaximo = cupoMaximo;
     }
     //metodos
-    public Inscripcion inscribir (Estudiante estudiante){
+    public Inscripcion inscribir (Estudiante estudiante) throws CupoExcedidoException {//throws es para llamar la clase de excepcion y dropear el mensaje de error
+        if(inscripcion.size() == cupoMaximo){
+            throw new CupoExcedidoException("No se puede inscribir al almuno "+estudiante.getNombre()+" porque se alcanzó el cupo máximo para esta actividad");
+        }
         Inscripcion nuevaInscripcion=new Inscripcion(LocalDate.now(), "Inscripto", this, estudiante);//pongo 'this' donde va la actividad para enviarse a si mismo.
         this.inscripcion.add(nuevaInscripcion);
         return nuevaInscripcion;

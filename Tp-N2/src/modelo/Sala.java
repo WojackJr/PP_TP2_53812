@@ -1,6 +1,6 @@
 package modelo;
 import java.io.Serializable;
-public class Sala implements java.io.Serializable{
+public class Sala implements Serializable{
     private int id;
     private String nombre;
     //getter and setter
