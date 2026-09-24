@@ -67,13 +67,6 @@ public class App {//este codigo crea un evento, a ese evento se crea un objeto a
                             + e.getMessage()
             );
 
-        } catch (ClassNotFoundException e) {
-
-            System.out.println(
-                    "No fue posible reconstruir el objeto almacenado: "
-                            + e.getMessage()
-            );
-
         } catch (IOException e) {
 
             System.out.println(

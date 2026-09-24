@@ -3,16 +3,13 @@ package modelo;
 import modelo.actividades.Actividad;
 import modelo.actividades.Charla;
 import modelo.actividades.Taller;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 //persistir evento
-import java.io.Serializable;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.IOException;
 //recuperar evento
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
+
 
 public class EventoUniversitario implements Serializable {
     private final String id;
@@ -150,20 +147,27 @@ public class EventoUniversitario implements Serializable {
 
     //metodo persistir evento
     public boolean persistirEvento() throws IOException {
-        String nombreArchivo = "evento_" + this.id + ".telAviv"; //el nombre debe ser el mismo cuando lo reconstruyo en el metodo recuperarEvento
+        String nombreArchivo = "evento_" + this.id + ".dat"; //el nombre debe ser el mismo cuando lo reconstruyo en el metodo recuperarEvento
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(nombreArchivo))) {
             oos.writeObject(this);
             return true;
+        } catch (IOException e) {
+            System.out.println("[ERROR AL PERSISTIR]: " + e.getMessage());
+            return false;
         }
     }
     //metodo recuperar evento
-    public EventoUniversitario recuperarEvento(String id)  throws IOException, ClassNotFoundException {
-
-        String nombreArchivo = "evento_" + id + ".telAviv";
-
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nombreArchivo))) {
-            return (EventoUniversitario) ois.readObject();
+    public EventoUniversitario recuperarEvento(String id){
+        EventoUniversitario objetoRecuperado=null;
+        try(FileInputStream fis=new FileInputStream("evento_"+this.id+".dat");
+        ObjectInputStream ois=new ObjectInputStream(fis)){
+            objetoRecuperado=(EventoUniversitario) ois.readObject();
+        }catch (IOException e){
+            System.out.println("Error al leer el archivo.");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: no se encontro la clase.");
         }
+    return objetoRecuperado;
     }
 }
 
