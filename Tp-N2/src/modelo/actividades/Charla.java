@@ -2,7 +2,7 @@ package modelo.actividades;
 import java.io.Serializable;
 public class Charla extends Actividad implements Serializable{
     //atributos
-    private String disertante;
+    private String disertante;//deberia agregarlo al constrructor, debajo de la declaracion del super
     public Charla(int id, String titulo, int cupoMaximo) {
         super(id, titulo, cupoMaximo);
     }

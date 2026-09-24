@@ -2,6 +2,9 @@ import exepciones.CupoExcedidoException;
 import modelo.Estudiante;
 import modelo.EventoUniversitario;
 import modelo.Sala;
+import modelo.actividades.Actividad;
+import modelo.actividades.Taller;
+import modelo.certificacion.Certificable;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -37,6 +40,17 @@ public class App {//este codigo crea un evento, a ese evento se crea un objeto a
             evento1.getActividades().get(0).inscribir(estudiante3);
         } catch (CupoExcedidoException e) {
             System.out.println("[ERROR DE INSCRIPCION]: "+e.getMessage()+" '"+evento1.getActividades().get(0).getTitulo()+"'");}//el sout es para que muestre el error, el e.getMessage() llama al texto.
+
+        //genero certificados de inscripcion para el evento 1
+
+        System.out.println("==========CERTIFICADOS==========\n"+Certificable.ENTIDAD_EMISORA);
+        for (Actividad i : evento1.getActividades()) {//recorro las actividades de este evento
+            if (i instanceof Certificable) {//debo buscar mejor como funciona este bloque
+                Certificable certificable=(Certificable) i;
+                String textoCertificado=certificable.generarCertificado(estudiante1);
+                System.out.println(textoCertificado);
+            }
+        }
 
         //la copia va al final asi agarra todos los atributos que le asigne a la original
         EventoUniversitario copiaEvento1=new EventoUniversitario(evento1);
