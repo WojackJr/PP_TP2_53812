@@ -3,11 +3,13 @@ import modelo.Estudiante;
 import modelo.EventoUniversitario;
 import modelo.Sala;
 import modelo.actividades.Actividad;
+import modelo.actividades.Curso;
 import modelo.actividades.Taller;
 import modelo.certificacion.Certificable;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 public class App {//este codigo crea un evento, a ese evento se crea un objeto actividad que es un array que a este por cada posicion de actividad se le crea un array que son las inscripciones que contienen los datos de los estudiantes
     public static void main(String[] args) throws IOException {
@@ -51,6 +53,15 @@ public class App {//este codigo crea un evento, a ese evento se crea un objeto a
                 System.out.println(textoCertificado);
             }
         }
+        //filtro la lista de un evento
+        List<Taller> talleres=evento1.filtrarActividadesPorTipo(Taller.class);
+        List<Curso> cursos=evento1.filtrarActividadesPorTipo(Curso.class); //que chistoso nunca cree los cursos dx
+
+        double costoTalleres= evento1.calcularCostoMateriales(talleres);
+        double costoCursos=evento1.calcularCostoMateriales(cursos);
+
+        System.out.println("Costo de materiales para talleres: $" + costoTalleres);
+        System.out.println("Costo de materiales para cursos: $" + costoCursos);
 
         //la copia va al final asi agarra todos los atributos que le asigne a la original
         EventoUniversitario copiaEvento1=new EventoUniversitario(evento1);
