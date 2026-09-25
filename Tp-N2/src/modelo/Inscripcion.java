@@ -6,6 +6,7 @@ import java.time.LocalDate;
 public class Inscripcion implements Serializable{
     private LocalDate fecha;
     private String estado;
+    private TicketDeAcceso ticket;//atributo de la clase Inscripcion del ejercicio 4 tp2
     //atributos que hace referencia a la asociacion
     private Actividad actividad;
     private Estudiante estudiante;
